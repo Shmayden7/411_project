@@ -44,6 +44,15 @@ class CityGraph:
         self.edges = self._create_edges()
         self._remove_looping_edges()
 
+    def _create_edges(self):
+        edges = []
+        for i in range(len(self.nodes)):
+            for j in range(i+1, len(self.nodes)):
+                city1, city2 = self.nodes[i], self.nodes[j]
+                dist = self.haversine_distance(city1['lat'], city1['lng'], city2['lat'], city2['lng'])
+                edges.append((city1['city'], city2['city'], dist))
+        return edges
+
     def _remove_looping_edges(self):
         # Remove any edges that loop back to the same city
         self.edges = [edge for edge in self.edges if edge[0] != edge[1]]
@@ -65,15 +74,6 @@ class CityGraph:
         if city1 is None or city2 is None:
             raise ValueError("One or both of the specified cities were not found in the graph.")
         return self.haversine_distance(city1['lat'], city1['lng'], city2['lat'], city2['lng'])
-
-    def _create_edges(self):
-        edges = []
-        for i in range(len(self.nodes)):
-            for j in range(i+1, len(self.nodes)):
-                city1, city2 = self.nodes[i], self.nodes[j]
-                dist = self.haversine_distance(city1['lat'], city1['lng'], city2['lat'], city2['lng'])
-                edges.append((city1['city'], city2['city'], dist))
-        return edges
     
     def get_city_data(self, city_name):
         for city in self.nodes:
@@ -81,7 +81,7 @@ class CityGraph:
                 return city
         return None  # Or raise an exception if the city is not found
     
-    def remove_link(self, city1_name, city2_name):
+    def remove_edge(self, city1_name, city2_name):
         # Removes the link (edge) between two cities, if it exists.
 
         # Convert the edge list to a list of tuples for easier manipulation
