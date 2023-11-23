@@ -175,7 +175,7 @@ class CityGraph:
             plt.savefig(f'{title}.png', format='png')
         plt.show()
 
-    def visualize_shortest_path(self, path, title):
+    def visualize_shortest_path(self, path, title, runtime):
         G = nx.Graph()
         pos = {}
         total_distance = 0
@@ -222,6 +222,12 @@ class CityGraph:
         # Annotation for the total distance
         plt.annotate(f'Total Distance: \n{total_distance:.2f} km', xy=(0, 1), xycoords='axes fraction',
                     xytext=(10, -35), textcoords='offset points',
+                    ha='left', va='top', fontsize=12, color='black',
+                    bbox=dict(boxstyle="round,pad=0.3", facecolor='white', edgecolor='black'))
+
+        # Annotation for the runtime
+        plt.annotate(f'Runtime: \n{runtime:.2f} miliseconds', xy=(0, 1), xycoords='axes fraction',
+                    xytext=(10, -70), textcoords='offset points',
                     ha='left', va='top', fontsize=12, color='black',
                     bbox=dict(boxstyle="round,pad=0.3", facecolor='white', edgecolor='black'))
 
