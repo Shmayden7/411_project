@@ -115,7 +115,6 @@ def visualize_moves(initial_state, moves):
             G.add_edge(i - 1, i)
 
         current_state = new_state
-        i=i-1
 
     labels = nx.get_edge_attributes(G, "label")
     nx.draw(G, pos, with_labels=True, labels=nx.get_node_attributes(G, "label"), node_size=7000, font_size=10)
