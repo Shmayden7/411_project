@@ -92,7 +92,7 @@ class MazeCanvas:
                     heapq.heappush(open_set, neighbor)
 
         return None
-   
+    
     def draw_maze(self, path=None):
         # Create the Tkinter window
         root = tk.Tk()
@@ -105,8 +105,8 @@ class MazeCanvas:
         maze_canvas.canvas.delete("all")
         for i, row in enumerate(self.maze):
             for j, cell in enumerate(row):
-                x0, y0 = j * 30, i * 30
-                x1, y1 = (j + 1) * 30, (i + 1) * 30
+                x0, y0 = j * 10, i * 10
+                x1, y1 = (j + 1) * 10, (i + 1) * 10
 
                 if (i, j) == self.start:
                     maze_canvas.canvas.create_rectangle(x0, y0, x1, y1, fill="green")
@@ -122,6 +122,7 @@ class MazeCanvas:
         # Run the Tkinter main loop
         root.mainloop()
 
-    def update_maze(self):
+    def update_maze_a_star(self):
         solution_path = self.a_star()
         self.draw_maze(solution_path)
+   
